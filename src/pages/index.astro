@@ -1,7 +1,5 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 ---
 
@@ -11,40 +9,162 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
 	<body>
-		<Header />
+		<!-- Hero -->
+		<header class="hero">
+			<img src="/sarahscriptlorepunk.webp" alt="lorepunk" class="hero-image" />
+		</header>
+
 		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to build
-				a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to <a href="https://docs.astro.build/"
-					>read the docs
-				</a> or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out <a
-					href="https://github.com/Charca/astro-blog-template"
-					>astro-blog-template
-				</a> by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+			<!-- The Thread -->
+			<section class="section thread">
+				<p class="lead">
+					I'm <strong>Margaret Corvid</strong>, a writer who builds worlds and tells stories across mediums.
+					Twenty years of words—from traditional journalism to crypto lore, from narrative design to poetry.
+				</p>
+				<p>
+					The work shapes who I am. The person shapes the work. It's all one strange,
+					honest thing.
+				</p>
+			</section>
+
+			<!-- The Work -->
+			<section class="section work">
+				<h2>The Work</h2>
+
+				<div class="work-grid">
+					<div class="work-item">
+						<h3>Content</h3>
+						<p>
+							Bylines in The Guardian, New Statesman, Cosmopolitan. Ghostwriting for crypto founders.
+							AI evaluation at Yupp. Words that move, inform, persuade.
+						</p>
+					</div>
+
+					<div class="work-item">
+						<h3>Narrative Design</h3>
+						<p>
+							Lore building for NFT projects. World-building for games.
+							The stories that live between the mechanics.
+						</p>
+					</div>
+
+					<div class="work-item">
+						<h3>Poetry</h3>
+						<p>
+							<em>Singing in the Dark Times</em>—published collection.
+							Official bard for Forgotten Runes Wizards Cult.
+							Words that reach for something else.
+						</p>
+					</div>
+				</div>
+
+				<p class="portfolio-link">
+					See the full portfolio: <a href="https://tinyurl.com/lorepunk" target="_blank" rel="noopener">tinyurl.com/lorepunk</a>
+				</p>
+			</section>
+
+			<!-- The Signal -->
+			<section class="section signal">
+				<h2>Find Me</h2>
+				<div class="links">
+					<a href="mailto:lorepunkdoteth@gmail.com">lorepunkdoteth@gmail.com</a>
+					<a href="https://x.com/lorepunk" target="_blank" rel="noopener">x.com/lorepunk</a>
+				</div>
+			</section>
 		</main>
-		<Footer />
+
+		<footer>
+			<p>Header art by <a href="https://x.com/sarah_script" target="_blank" rel="noopener">@sarah_script</a></p>
+		</footer>
 	</body>
 </html>
+
+<style>
+	.hero {
+		width: 100%;
+		background: #0d0d0d;
+		display: flex;
+		justify-content: center;
+		padding: 3rem 1rem 2rem;
+	}
+
+	.hero-image {
+		max-width: 700px;
+		width: 100%;
+		height: auto;
+	}
+
+	.section {
+		padding: 3rem 0;
+		border-bottom: 1px solid var(--border);
+	}
+
+	.section:last-of-type {
+		border-bottom: none;
+	}
+
+	.thread {
+		padding-top: 2rem;
+	}
+
+	.lead {
+		font-size: 1.25rem;
+		color: var(--text-primary);
+		margin-bottom: 1.5rem;
+	}
+
+	.work-grid {
+		display: grid;
+		gap: 2rem;
+		margin-bottom: 2rem;
+	}
+
+	.work-item h3 {
+		color: var(--text-primary);
+		font-size: 1.1rem;
+		margin-bottom: 0.5rem;
+		font-weight: 700;
+	}
+
+	.work-item p {
+		margin: 0;
+	}
+
+	.portfolio-link {
+		margin-top: 2rem;
+		padding-top: 1.5rem;
+		border-top: 1px solid var(--border);
+	}
+
+	.signal .links {
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+	}
+
+	.signal a {
+		font-size: 1.1rem;
+	}
+
+	footer {
+		padding: 3rem 1.5rem;
+		text-align: center;
+		color: var(--text-secondary);
+		font-size: 0.9rem;
+	}
+
+	footer p {
+		margin: 0;
+	}
+
+	@media (min-width: 600px) {
+		.work-grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.signal .links {
+			flex-direction: row;
+			gap: 2rem;
+		}
+	}
+</style>
