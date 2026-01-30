@@ -12,6 +12,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		<!-- Hero -->
 		<header class="hero">
 			<img src="/sarahscriptlorepunk.webp" alt="lorepunk" class="hero-image" />
+			<div class="hero-fade"></div>
 		</header>
 
 		<main>
@@ -33,10 +34,10 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 				<div class="work-grid">
 					<div class="work-item">
-						<h3>Content</h3>
+						<h3>Content & AI</h3>
 						<p>
-							Bylines in The Guardian, New Statesman, Cosmopolitan. Ghostwriting for crypto founders.
-							AI evaluation at Yupp. Words that move, inform, persuade.
+							AI evaluation and storytelling at Yupp. Bylines at Now Media.
+							Exploring how language models tell stories—and how to tell stories with them.
 						</p>
 					</div>
 
@@ -84,14 +85,25 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 		width: 100%;
 		background: #0d0d0d;
 		display: flex;
-		justify-content: center;
-		padding: 3rem 1rem 2rem;
+		flex-direction: column;
+		align-items: center;
+		padding: 3rem 1rem 0;
+		position: relative;
 	}
 
 	.hero-image {
 		max-width: 700px;
 		width: 100%;
 		height: auto;
+	}
+
+	.hero-fade {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 80px;
+		background: linear-gradient(to bottom, transparent, #0d0d0d);
 	}
 
 	.section {
