@@ -1,8 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
@@ -14,48 +12,198 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 	<head>
 		<BaseHead title={title} description={description} />
 		<style>
-			main {
-				width: calc(100% - 2em);
-				max-width: 100%;
-				margin: 0;
+			body {
+				background: var(--bg-dark);
+				color: var(--text-primary);
+			}
+			.blog-nav {
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 1.5rem 1.5rem 0;
+			}
+			.blog-nav a {
+				color: var(--accent);
+				text-decoration: none;
+				font-size: 0.9rem;
+				letter-spacing: 0.05em;
+				text-transform: uppercase;
+			}
+			.blog-nav a:hover {
+				color: var(--accent-hover);
 			}
 			.hero-image {
 				width: 100%;
+				max-width: 800px;
+				margin: 2rem auto 0;
+				padding: 0 1.5rem;
 			}
 			.hero-image img {
 				display: block;
-				margin: 0 auto;
-				border-radius: 12px;
-				box-shadow: var(--box-shadow);
+				width: 100%;
+				border-radius: 8px;
 			}
 			.prose {
-				width: 720px;
-				max-width: calc(100% - 2em);
-				margin: auto;
-				padding: 1em;
-				color: rgb(var(--gray-dark));
+				width: 100%;
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 1.5rem;
+				color: var(--text-secondary);
+				line-height: 1.8;
 			}
 			.title {
-				margin-bottom: 1em;
-				padding: 1em 0;
+				margin-bottom: 2rem;
+				padding-bottom: 1.5rem;
+				border-bottom: 1px solid var(--border);
 				text-align: center;
-				line-height: 1;
 			}
 			.title h1 {
-				margin: 0 0 0.5em 0;
+				margin: 0 0 0.5rem 0;
+				color: var(--text-primary);
+				font-size: 2rem;
+				font-weight: 700;
+				line-height: 1.2;
+				text-transform: none;
+				letter-spacing: 0;
 			}
 			.date {
-				margin-bottom: 0.5em;
-				color: rgb(var(--gray));
+				margin-bottom: 0.5rem;
+				color: var(--text-secondary);
+				font-size: 0.9rem;
 			}
 			.last-updated-on {
 				font-style: italic;
+			}
+			.prose :global(h2) {
+				color: var(--accent);
+				font-size: 1.4rem;
+				margin-top: 2.5rem;
+				margin-bottom: 1rem;
+				letter-spacing: 0.03em;
+				text-transform: uppercase;
+				font-weight: 400;
+			}
+			.prose :global(h3) {
+				color: var(--text-primary);
+				font-size: 1.15rem;
+				margin-top: 2rem;
+				margin-bottom: 0.75rem;
+				font-weight: 700;
+			}
+			.prose :global(p) {
+				color: var(--text-secondary);
+				margin-bottom: 1.25em;
+				line-height: 1.8;
+			}
+			.prose :global(a) {
+				color: var(--accent);
+				text-decoration: none;
+			}
+			.prose :global(a:hover) {
+				color: var(--accent-hover);
+			}
+			.prose :global(strong) {
+				color: var(--text-primary);
+				font-weight: 700;
+			}
+			.prose :global(em) {
+				font-style: italic;
+			}
+			.prose :global(hr) {
+				border: none;
+				border-top: 1px solid var(--border);
+				margin: 2rem 0;
+			}
+			.prose :global(img) {
+				max-width: 100%;
+				height: auto;
+				border-radius: 8px;
+				margin: 1.5rem 0;
+			}
+			.prose :global(blockquote) {
+				border-left: 3px solid var(--accent);
+				margin: 1.5rem 0;
+				padding: 0.5rem 1.5rem;
+				color: var(--text-secondary);
+				font-style: italic;
+			}
+			.prose :global(code) {
+				background: var(--bg-card);
+				padding: 0.15em 0.4em;
+				border-radius: 4px;
+				font-size: 0.9em;
+				color: var(--text-primary);
+			}
+			.prose :global(pre) {
+				background: var(--bg-card);
+				padding: 1rem 1.5rem;
+				border-radius: 8px;
+				overflow-x: auto;
+				margin: 1.5rem 0;
+			}
+			.prose :global(pre code) {
+				background: none;
+				padding: 0;
+			}
+			.prose :global(table) {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 1.5rem 0;
+				font-size: 0.85rem;
+				overflow-x: auto;
+				display: block;
+			}
+			.prose :global(thead) {
+				border-bottom: 2px solid var(--border);
+			}
+			.prose :global(th) {
+				color: var(--text-primary);
+				font-weight: 700;
+				text-align: left;
+				padding: 0.75rem 0.5rem;
+				white-space: nowrap;
+			}
+			.prose :global(td) {
+				padding: 0.5rem;
+				border-bottom: 1px solid var(--border);
+				color: var(--text-secondary);
+			}
+			.prose :global(td strong) {
+				color: var(--accent);
+			}
+			.blog-footer {
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 3rem 1.5rem;
+				text-align: center;
+				color: var(--text-secondary);
+				font-size: 0.9rem;
+				border-top: 1px solid var(--border);
+			}
+			.blog-footer a {
+				color: var(--accent);
+				text-decoration: none;
+			}
+			.blog-footer a:hover {
+				color: var(--accent-hover);
+			}
+			@media (max-width: 600px) {
+				.title h1 {
+					font-size: 1.5rem;
+				}
+				.prose {
+					padding: 1rem;
+				}
+				.prose :global(table) {
+					font-size: 0.75rem;
+				}
 			}
 		</style>
 	</head>
 
 	<body>
-		<Header />
+		<nav class="blog-nav">
+			<a href="/">&larr; lorepunk</a>
+		</nav>
 		<main>
 			<article>
 				<div class="hero-image">
@@ -74,12 +222,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 							}
 						</div>
 						<h1>{title}</h1>
-						<hr />
 					</div>
 					<slot />
 				</div>
 			</article>
 		</main>
-		<Footer />
+		<footer class="blog-footer">
+			<a href="/">lorepunk.ai</a>
+		</footer>
 	</body>
 </html>
