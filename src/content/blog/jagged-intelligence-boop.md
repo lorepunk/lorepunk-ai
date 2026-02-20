@@ -18,7 +18,7 @@ We needed a word with fewer language priors to lean on. A word so uncommon that 
 
 We needed **BOOP**.
 
-![The BOOP orientation-contrast illusion](/boop.png)
+![The BOOP orientation-contrast illusion](/boop.jpg)
 
 What is BOOP? It originates in scat singing within jazz and the famous cartoon vixen, Betty Boop. More recently, BOOP refers to the notion of beholding an animal that is so adorable that you press its nose and say the word "boop". The **OED** has the verb "boop" (gentle tap, especially on the nose, as a gesture of affection) from as early as the 1940s, with the noun form appearing around 2002. The internet meme version -- "boop the snoot" -- really took off around 2010-2012 with Reddit's r/boop and Buzzfeed listicles of animals getting nose-tapped. In short, Boop is well in the vernacular of the internet but is also recent enough that it could be less likely to appear prominently in training data, making it a useful instrument to explore model guessing profiles when they incompletely decipher an image.
 
