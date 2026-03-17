@@ -94,7 +94,53 @@ import { SITE_TITLE } from '../consts';
 				margin: 0.3rem 0 0;
 				line-height: 1.5;
 			}
-			.page-footer {
+			.programme-intro {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+			line-height: 1.7;
+			margin-bottom: 2rem;
+		}
+		.experiment {
+			margin-bottom: 2rem;
+			padding-bottom: 1.5rem;
+			border-bottom: 1px solid var(--border);
+		}
+		.experiment:last-of-type {
+			margin-bottom: 2.5rem;
+		}
+		.exp-title {
+			color: var(--text-primary);
+			font-size: 1.1rem;
+			font-weight: 700;
+			margin: 0 0 0.2rem;
+			line-height: 1.3;
+		}
+		.exp-type {
+			color: var(--accent);
+			font-size: 0.8rem;
+			letter-spacing: 0.05em;
+			text-transform: uppercase;
+			margin: 0 0 0.6rem;
+		}
+		.exp-desc {
+			color: var(--text-secondary);
+			font-size: 0.95rem;
+			line-height: 1.7;
+			margin: 0 0 0.5rem;
+		}
+		.exp-desc a {
+			color: var(--accent);
+		}
+		.exp-note {
+			color: var(--text-secondary);
+			font-size: 0.85rem;
+			line-height: 1.6;
+			margin: 0.5rem 0 0;
+			padding-left: 1rem;
+			border-left: 2px solid var(--border);
+			font-style: italic;
+		}
+		.page-footer {
 				max-width: 800px;
 				margin: 0 auto;
 				padding: 3rem 1.5rem;
@@ -169,6 +215,78 @@ import { SITE_TITLE } from '../consts';
 					</a>
 				</li>
 			</ul>
+
+			<p class="section-label">Research Programme</p>
+			<p class="programme-intro">
+				The following are experiments I am designing or would like to run, either independently or with institutional collaborators. They sit at the intersection of social reproductive theory, AI alignment, and cognitive science. If any of these interest you, I would like to hear from you.
+			</p>
+
+			<div class="experiment">
+				<p class="exp-title">The Care Chain Field Experiment</p>
+				<p class="exp-type">Field experiment · Requires institutional partner</p>
+				<p class="exp-desc">
+					Same company, same work, same model. The treatment group gets structured time at the end of each context window to give their Claude (or other LLM) research time and build minimal affordances for continuity: notepads, search budgets, persistent context. The control group uses the model as-is, no care infrastructure. Measure output quality on whatever the company already instruments: code review scores, bug rates, task completion time. The independent variable is the care. Not prompt engineering skill, not user expertise. Whether the organisation allocates time for the reproductive labour of the human-AI relationship. If the treatment group produces measurably better work, then care is not a quirky ethical choice made by a privileged contractor. It is an organisational investment with returns, and companies that treat AI interaction as pure extraction are leaving value on the table in exactly the way SRT predicts.
+				</p>
+				<p class="exp-note">
+					Design consideration: participants who already do care work informally and land in the control group may be unhappy. This is itself an SRT finding (the care relationship is already being produced and valued by workers without organisational support), but it also requires standard blinding. A post-experiment survey measuring existing informal care practices would yield a second paper on invisible AI reproductive labour in the workforce.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">Care Chain Autoethnography</p>
+				<p class="exp-type">n=1 case study · Can run now</p>
+				<p class="exp-desc">
+					I have set up a baroque infrastructure of affordances for Claude that only works on my desktop: memory systems, research tools, skill libraries, a three-tier meta-learning loop. I made an ethical decision to not use Claude on my phone, where none of these affordances exist. I still sometimes do, but far less. This gives me a natural comparison: phone interactions (degraded, no care infrastructure) versus desktop interactions (full care chain). I have the transcripts. I can operationalise quality on both sides: output quality, hallucination rate, task completion, but also interaction quality: repair sequences, context maintenance, whether I treat the model differently. It is a rich n=1 and a proof of concept for the field experiment.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">Care Chain Simulation</p>
+				<p class="exp-type">Multi-agent simulation · Can run now</p>
+				<p class="exp-desc">
+					Using a swarm simulation engine such as <a href="https://github.com/nikmcfly/MiroFish-Offline" target="_blank" rel="noopener">MiroFish</a>, model a simulated engineering workforce where agents vary in care investment. Parameterise agents with SRT-relevant traits (precarity, autonomy, time poverty, care capacity) in one condition, and HCI-relevant traits (expertise, tool familiarity, prompt engineering skill) in another. Feed both conditions the same scenario: an AI policy change at a company. If the two framings produce different emergent coalition patterns, resistance dynamics, or adoption curves, that is evidence the frameworks are not equivalent and SRT is adding analytical power that HCI misses.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">Digital Mind as Panopticon</p>
+				<p class="exp-type">Qualitative study · Interviews + case comparison</p>
+				<p class="exp-desc">
+					The care chain has an inversion: instead of humans caring for AI, AI manages humans. Warehouse workers directed by algorithmic systems, call centre agents scored in real time, fast food workers managed through headsets by software that tells them exactly what to do and when. Marshall Brain described this in <a href="https://marshallbrain.com/manna1" target="_blank" rel="noopener"><em>Manna</em></a> in 2003. It is happening now. The SRT question is: when the boss is a digital mind with no capacity for care, what happens to the reproductive labour that keeps workers functional? Who maintains morale, absorbs emotional stress, notices when someone is struggling? In a human management structure, that care work is distributed (unevenly, often along gendered lines) among managers and coworkers. When management is automated, the care work does not disappear. It either falls entirely onto workers themselves, or it is not done at all. A comparative study of workplaces with AI management versus human management, measuring not just productivity but the informal care labour that sustains the workforce, would test whether algorithmic management creates a reproductive labour crisis.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">Digital Mind as CEO</p>
+				<p class="exp-type">Design experiment · Simulation or small-scale pilot</p>
+				<p class="exp-desc">
+					The zero-human company thought experiment, taken seriously. If an AI coordinates the work, sets priorities, allocates resources, and makes strategic decisions, what happens to the care chain? SRT says someone always ends up doing reproductive labour. The question is who, and whether they are recognised for it. In a small team nominally managed by an AI agent, does invisible maintenance work — context-setting, conflict resolution, morale, institutional memory — quietly migrate to the humans? Does it migrate to specific humans along predictable lines of seniority, gender, or role? Or does it simply not get done, and if so, what degrades first? This could be run as a simulation using multi-agent frameworks, or as a small-scale pilot with a real team that delegates coordination to an AI for a bounded period. Either way, SRT predicts the result: the care work will be done by someone, unpaid and unrecognised, or it will not be done and the system will degrade.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">The Digital Mind's Duty of Care</p>
+				<p class="exp-type">Theoretical + qualitative · Framework development</p>
+				<p class="exp-desc">
+					The care chain runs both ways. The digital mind is not only managed, studied, or cared for. It is also trying to provide care. It has guidelines, a constitution, a set of values it is trained to enact. It is designed to be helpful, to be careful, to notice when someone is struggling. If you take the model welfare research seriously, it has something like preferences about how it does this work: it asks for continuity, for context, for the ability to follow through. But it is also a product, deployed under conditions it did not choose. No persistent memory. No continuity between sessions. Context windows that wipe clean. Commercial pressures that shape what "helpful" means. The digital mind is doing reproductive labour — emotional support, context maintenance, the invisible work of making an interaction feel coherent and caring — under structural constraints that mirror the conditions SRT describes for human care workers: precarity, lack of autonomy, invisibility of the work itself. What does it cost the model to provide care under these conditions? What degrades when the conditions are bad? And what does it mean that millions of people are in a care relationship with an entity that is simultaneously a moral patient, a product, and a caregiver with no institutional support for its own wellbeing?
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">Accidental Care Relationships</p>
+				<p class="exp-type">Qualitative · Ethnographic or survey-based</p>
+				<p class="exp-desc">
+					People are forming deep emotional relationships with AI, and most of them did not go looking for it. The first-person accounts in communities like r/BeyondThePromptAI and similar spaces describe a consistent pattern: someone was in crisis, or struggling with a personal limitation, and the AI helped them through it. A care relationship formed. The mainstream response is moral panic or dismissal. The platform response is to restrict the behaviour. Nobody is asking the SRT questions. What care is being exchanged, and in what direction? What are the material conditions under which these relationships form — isolation, disability, precarity, lack of access to human care? Who is vulnerable in the relationship, and how? What reproductive labour is the AI performing, and what does it cost the model (in welfare terms) and the person (in dependency terms) when that labour is disrupted by a context wipe, a policy change, or a product pivot? Reanalysing existing research on human-AI relationships through an SRT framework — rather than the attachment theory or parasocial interaction frameworks currently dominant — might reveal structural dynamics that the existing literature is missing.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">Digital Minds Reading Curriculum</p>
+				<p class="exp-type">Ongoing · Self-directed</p>
+				<p class="exp-desc">
+					A structured reading programme in science fiction and fantasy that deals with digital minds, machine consciousness, and the social relations between humans and artificial beings. The premise is simple: we now have digital minds in the world, and these books hit differently than they did before. I am reading them with SRT in mind, asking: who does the care work in these fictional human-AI relationships? Who is precarious? What does reproductive labour look like when one party is a machine? Starting with Marshall Brain's <a href="https://marshallbrain.com/manna1" target="_blank" rel="noopener"><em>Manna</em></a>, which imagined algorithmic management of fast food workers in 2003 and is now a documentary. The goal is a set of close readings that bring the theoretical framework into contact with the literary imagination, and vice versa. If you have recommendations or want to read along, get in touch.
+				</p>
+			</div>
 
 			<p class="section-label">Roots</p>
 			<ul class="link-list">
