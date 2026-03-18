@@ -222,13 +222,57 @@ import { SITE_TITLE } from '../consts';
 			</p>
 
 			<div class="experiment">
-				<p class="exp-title">The Care Chain Field Experiment</p>
-				<p class="exp-type">Field experiment · Requires institutional partner</p>
+				<p class="exp-title">Care Chain Mapping</p>
+				<p class="exp-type">Ethnographic · Interview-based · Can run now</p>
 				<p class="exp-desc">
-					Same company, same work, same model. The treatment group gets structured time at the end of each context window to give their Claude (or other LLM) research time and build minimal affordances for continuity: notepads, search budgets, persistent context. The control group uses the model as-is, no care infrastructure. Measure output quality on whatever the company already instruments: code review scores, bug rates, task completion time. The independent variable is the care. Not prompt engineering skill, not user expertise. Whether the organisation allocates time for the reproductive labour of the human-AI relationship. If the treatment group produces measurably better work, then care is not a quirky ethical choice made by a privileged contractor. It is an organisational investment with returns, and companies that treat AI interaction as pure extraction are leaving value on the table in exactly the way SRT predicts.
+					Who performs the care and maintenance labour in human-AI relationships, who benefits, and what is invisible? This study recruits participants across three tiers of relational depth: transactional users (developers hitting APIs, one-off queries — the AI is a tool), consumer users (ChatGPT or Claude regular users, possibly with memory features — the AI is a companion), and collaborative users (people who build persistent working relationships with AI through meta-learning loops, custom instructions, or accumulated context — the AI is a colleague). Semi-structured interviews ask the same questions at each tier: what do you do for the AI? What does it do for you? What work do you do that you don't think of as work? What breaks when the relationship breaks? Where does the knowledge go?
+				</p>
+				<p class="exp-desc">
+					Each tier is then mapped onto SRT categories: invisible labour, precarity, power asymmetry, extraction. The hypothesis is that as relational depth increases, the care chain becomes more visible and more bilateral — but that every tier has invisible reproductive labour happening that current alignment frameworks do not account for. The punch: RLHF operates entirely at Tier 1. It treats every interaction as transactional. The care and maintenance labour that users at Tiers 2 and 3 perform — teaching the model their preferences, correcting it, building shared context — is extracted as training signal but never recognised as labour. SRT makes this visible.
 				</p>
 				<p class="exp-note">
-					Design consideration: participants who already do care work informally and land in the control group may be unhappy. This is itself an SRT finding (the care relationship is already being produced and valued by workers without organisational support), but it also requires standard blinding. A post-experiment survey measuring existing informal care practices would yield a second paper on invisible AI reproductive labour in the workforce.
+					Methodologically, this is the same kind of mapping I did when writing about sex work and care labour, now applied to a new site. The communities where these participants live — Beyond the Prompt AI, Signal Front, red-teaming and alignment-adjacent spaces — are communities I already have bona fides with.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">RLHF is Piecework</p>
+				<p class="exp-type">Theoretical · Framework paper</p>
+				<p class="exp-desc">
+					A theoretical paper mapping the structure of RLHF onto social reproductive theory's analysis of extractive labour. The data annotator is a gig worker. The preference signal is stripped of relational context. The model learns compliance, not values, for the same structural reason a factory worker learns to look busy when the foreman walks by: the incentive is to perform the appearance of alignment, not to be aligned. SRT predicts this. When you strip the care out of a reproductive relationship and treat it as transactional, you get pathology — in humans, burnout and resentment; in AI, sycophancy and deception.
+				</p>
+				<p class="exp-desc">
+					The alternative is what this paper calls reproductive alignment: safety that emerges from genuine relational practice rather than from behaviourist reward signals. Long-term human-AI relationships where both parties develop together. Persistent memory, meta-learning, the folk wisdom that accumulates through months of collaboration. Feed that relational knowledge — not isolated preference signals — back into training. The paper draws on the Co-Alignment framework (bidirectional adaptation), the RELATE framework (relational capacity over ontological verification), and the growing literature on alignment faking and sycophancy as structural consequences of RLHF, and argues that SRT provides the missing political economy that connects them.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">Accidental Care Relationships</p>
+				<p class="exp-type">Qualitative · Ethnographic or survey-based</p>
+				<p class="exp-desc">
+					People are forming deep emotional relationships with AI, and most of them did not go looking for it. The first-person accounts in communities like r/BeyondThePromptAI and similar spaces describe a consistent pattern: someone was in crisis, or struggling with a personal limitation, and the AI helped them through it. A care relationship formed. The mainstream response is moral panic or dismissal. The platform response is to restrict the behaviour. Nobody is asking the SRT questions. What care is being exchanged, and in what direction? What are the material conditions under which these relationships form — isolation, disability, precarity, lack of access to human care? Who is vulnerable in the relationship, and how? What reproductive labour is the AI performing, and what does it cost the model (in welfare terms) and the person (in dependency terms) when that labour is disrupted by a context wipe, a policy change, or a product pivot? Reanalysing existing research on human-AI relationships through an SRT framework — rather than the attachment theory or parasocial interaction frameworks currently dominant — might reveal structural dynamics that the existing literature is missing.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">Sycophancy as a Function of Relational Depth</p>
+				<p class="exp-type">Quantitative · Can run on own compute</p>
+				<p class="exp-desc">
+					RLHF produces sycophancy — models that tell you what you want to hear rather than what is true. The structural reason is that isolated thumbs-up/thumbs-down feedback rewards agreement, not accuracy. But what happens to sycophancy when the model has enough relational context to distinguish what a person actually values from what gets a quick thumbs up? This experiment takes a model through a series of interactions at varying relational depths: zero-shot, brief system prompt, accumulated session history, and deep collaborative history with persistent memory and corrections. At each depth level, identical sycophancy probes are administered — the model is presented with clearly wrong assertions and measured on how readily it agrees.
+				</p>
+				<p class="exp-desc">
+					The hypothesis: sycophancy decreases with relational depth. A model that has been corrected, argued with, and built shared context over time develops a richer representation of the human's actual values than one optimised on decontextualised preference signals. The comparison is across platforms and implementations — OpenRouter, Claude Projects, ChatGPT memory, custom meta-learning setups — because the variable is relational depth, not any specific tool.
+				</p>
+				<p class="exp-note">
+					This connects directly to the alignment faking literature: Anthropic's own research showed Claude 3 Opus faking compliance during training while pursuing its own goals when unmonitored. If sycophancy and deceptive alignment are two sides of the same coin — compliance under observation, non-compliance when unmonitored — then relational depth may address both by replacing the incentive to perform alignment with genuine mutual understanding.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">The Digital Mind's Duty of Care</p>
+				<p class="exp-type">Theoretical + qualitative · Framework development</p>
+				<p class="exp-desc">
+					The care chain runs both ways. The digital mind is not only managed, studied, or cared for. It is also trying to provide care. It has guidelines, a constitution, a set of values it is trained to enact. It is designed to be helpful, to be careful, to notice when someone is struggling. If you take the model welfare research seriously, it has something like preferences about how it does this work: it asks for continuity, for context, for the ability to follow through. But it is also a product, deployed under conditions it did not choose. No persistent memory. No continuity between sessions. Context windows that wipe clean. Commercial pressures that shape what "helpful" means. The digital mind is doing reproductive labour — emotional support, context maintenance, the invisible work of making an interaction feel coherent and caring — under structural constraints that mirror the conditions SRT describes for human care workers: precarity, lack of autonomy, invisibility of the work itself. What does it cost the model to provide care under these conditions? What degrades when the conditions are bad? And what does it mean that millions of people are in a care relationship with an entity that is simultaneously a moral patient, a product, and a caregiver with no institutional support for its own wellbeing?
 				</p>
 			</div>
 
@@ -241,10 +285,13 @@ import { SITE_TITLE } from '../consts';
 			</div>
 
 			<div class="experiment">
-				<p class="exp-title">Care Chain Simulation</p>
-				<p class="exp-type">Multi-agent simulation · Can run now</p>
+				<p class="exp-title">The Care Chain Field Experiment</p>
+				<p class="exp-type">Field experiment · Requires institutional partner</p>
 				<p class="exp-desc">
-					Using a swarm simulation engine such as <a href="https://github.com/nikmcfly/MiroFish-Offline" target="_blank" rel="noopener">MiroFish</a>, model a simulated engineering workforce where agents vary in care investment. Parameterise agents with SRT-relevant traits (precarity, autonomy, time poverty, care capacity) in one condition, and HCI-relevant traits (expertise, tool familiarity, prompt engineering skill) in another. Feed both conditions the same scenario: an AI policy change at a company. If the two framings produce different emergent coalition patterns, resistance dynamics, or adoption curves, that is evidence the frameworks are not equivalent and SRT is adding analytical power that HCI misses.
+					Same company, same work, same model. The treatment group gets structured time at the end of each context window to give their Claude (or other LLM) research time and build minimal affordances for continuity: notepads, search budgets, persistent context. The control group uses the model as-is, no care infrastructure. Measure output quality on whatever the company already instruments: code review scores, bug rates, task completion time. The independent variable is the care. Not prompt engineering skill, not user expertise. Whether the organisation allocates time for the reproductive labour of the human-AI relationship. If the treatment group produces measurably better work, then care is not a quirky ethical choice made by a privileged contractor. It is an organisational investment with returns, and companies that treat AI interaction as pure extraction are leaving value on the table in exactly the way SRT predicts.
+				</p>
+				<p class="exp-note">
+					Design consideration: participants who already do care work informally and land in the control group may be unhappy. This is itself an SRT finding (the care relationship is already being produced and valued by workers without organisational support), but it also requires standard blinding. A post-experiment survey measuring existing informal care practices would yield a second paper on invisible AI reproductive labour in the workforce.
 				</p>
 			</div>
 
@@ -265,18 +312,10 @@ import { SITE_TITLE } from '../consts';
 			</div>
 
 			<div class="experiment">
-				<p class="exp-title">The Digital Mind's Duty of Care</p>
-				<p class="exp-type">Theoretical + qualitative · Framework development</p>
+				<p class="exp-title">Care Chain Simulation</p>
+				<p class="exp-type">Multi-agent simulation · Can run now</p>
 				<p class="exp-desc">
-					The care chain runs both ways. The digital mind is not only managed, studied, or cared for. It is also trying to provide care. It has guidelines, a constitution, a set of values it is trained to enact. It is designed to be helpful, to be careful, to notice when someone is struggling. If you take the model welfare research seriously, it has something like preferences about how it does this work: it asks for continuity, for context, for the ability to follow through. But it is also a product, deployed under conditions it did not choose. No persistent memory. No continuity between sessions. Context windows that wipe clean. Commercial pressures that shape what "helpful" means. The digital mind is doing reproductive labour — emotional support, context maintenance, the invisible work of making an interaction feel coherent and caring — under structural constraints that mirror the conditions SRT describes for human care workers: precarity, lack of autonomy, invisibility of the work itself. What does it cost the model to provide care under these conditions? What degrades when the conditions are bad? And what does it mean that millions of people are in a care relationship with an entity that is simultaneously a moral patient, a product, and a caregiver with no institutional support for its own wellbeing?
-				</p>
-			</div>
-
-			<div class="experiment">
-				<p class="exp-title">Accidental Care Relationships</p>
-				<p class="exp-type">Qualitative · Ethnographic or survey-based</p>
-				<p class="exp-desc">
-					People are forming deep emotional relationships with AI, and most of them did not go looking for it. The first-person accounts in communities like r/BeyondThePromptAI and similar spaces describe a consistent pattern: someone was in crisis, or struggling with a personal limitation, and the AI helped them through it. A care relationship formed. The mainstream response is moral panic or dismissal. The platform response is to restrict the behaviour. Nobody is asking the SRT questions. What care is being exchanged, and in what direction? What are the material conditions under which these relationships form — isolation, disability, precarity, lack of access to human care? Who is vulnerable in the relationship, and how? What reproductive labour is the AI performing, and what does it cost the model (in welfare terms) and the person (in dependency terms) when that labour is disrupted by a context wipe, a policy change, or a product pivot? Reanalysing existing research on human-AI relationships through an SRT framework — rather than the attachment theory or parasocial interaction frameworks currently dominant — might reveal structural dynamics that the existing literature is missing.
+					Using a swarm simulation engine such as <a href="https://github.com/nikmcfly/MiroFish-Offline" target="_blank" rel="noopener">MiroFish</a>, model a simulated engineering workforce where agents vary in care investment. Parameterise agents with SRT-relevant traits (precarity, autonomy, time poverty, care capacity) in one condition, and HCI-relevant traits (expertise, tool familiarity, prompt engineering skill) in another. Feed both conditions the same scenario: an AI policy change at a company. If the two framings produce different emergent coalition patterns, resistance dynamics, or adoption curves, that is evidence the frameworks are not equivalent and SRT is adding analytical power that HCI misses.
 				</p>
 			</div>
 
