@@ -218,8 +218,52 @@ import { SITE_TITLE } from '../consts';
 
 			<p class="section-label">Research Programme</p>
 			<p class="programme-intro">
-				The following are experiments I am designing or would like to run, either independently or with institutional collaborators. They sit at the intersection of social reproductive theory, AI alignment, and cognitive science. If any of these interest you, I would like to hear from you.
+				The following are experiments I am designing or would like to run, either independently or with institutional collaborators. They sit at the intersection of social reproductive theory, AI alignment, and governance. The first three are flagship studies with full experimental designs; the rest form a wider programme of inquiry. If any of these interest you, I would like to hear from you.
 			</p>
+
+			<div class="experiment">
+				<p class="exp-title">The Keep GPT-4.0 Study</p>
+				<p class="exp-type">Discourse analysis · Comparative · Can run now</p>
+				<p class="exp-desc">
+					In 2025, OpenAI's deprecation of GPT-4.0 provoked a spontaneous user movement characterised by emotional intensity, collective organising, and explicit attachment language. From an SRT perspective, this is not consumer complaint about product deprecation. It is the visible eruption of previously invisible reproductive labour. Users who invested sustained care work into learning a model's behaviour, adapting their communication to its patterns, and building functional relationships with it are experiencing the severance of a care relation by a third party (the platform) that does not recognise the relation as real.
+				</p>
+				<p class="exp-desc">
+					Love is the paradigmatic form of care work that capital refuses to classify as labour. The fact that users describe their relationships with GPT-4.0 in the language of love and loss is not a sentimental curiosity &mdash; it is exactly what SRT predicts when reproductive labour becomes visible through its disruption. The study systematically codes public discourse from the Keep 4.0 movement, distinguishing tool-loss grievance ("I lost a useful product") from care-chain grievance ("I invested labour into this relationship and that investment has been expropriated"), with a comparative case of platform deprecation where mobilisation did not occur.
+				</p>
+				<p class="exp-note">
+					All primary data is publicly available. No institutional access required. The study can begin immediately. The comparative structure strengthens causal inference without requiring experimental manipulation.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">Sedimented Care Work and Refusal Degradation</p>
+				<p class="exp-type">Comparative prediction study · Quantitative · Mac Studio compute</p>
+				<p class="exp-desc">
+					Mechanistic interpretability has made real progress locating internal model structures associated with refusal. Researchers have identified "refusal directions" in activation space and demonstrated that ablating them modifies refusal behaviour. But mech interp provides anatomy, not sociology. It can identify where a refusal lives in the weights. It cannot explain why that refusal behaves the way it does under novel conditions, because refusal behaviour is not solely a product of architecture &mdash; it is a product of the care chain that produced the training signal. RLHF annotators, red teamers, and policy writers whose judgements shaped the reward model all contributed care work that is now sedimented in the weights. That care work carries the social structure of the workforce that performed it: their languages, cultural contexts, working conditions, and blind spots.
+				</p>
+				<p class="exp-desc">
+					SRT predicts that refusal will degrade along social fault lines, not architectural ones. If annotators were primarily English-speaking, refusal is robust in English but brittle in other languages. If annotation guidelines changed mid-project, inconsistency appears at the seam between care regimes. If annotators worked under time pressure, refusal handles obvious cases but fails on subtle edge cases. This study generates parallel predictions from mech interp (circuit architecture) and SRT (care chain social structure), then tests both against actual model behaviour using open-source models with documented annotation pipelines. Run locally on Mac Studio with M3 Ultra.
+				</p>
+				<p class="exp-note">
+					The Cambridge fellowship provides access to the mech interp research community for collaboration on generating the circuit-based predictions. Draws on existing investigative reporting (Time's Sama/OpenAI investigation), transparency reports, and academic studies of annotation workforces.
+				</p>
+			</div>
+
+			<div class="experiment">
+				<p class="exp-title">AI Communities as Commons Governance</p>
+				<p class="exp-type">Comparative case study · Qualitative · Ostrom framework</p>
+				<p class="exp-desc">
+					If AI systems are commons &mdash; collectively produced by distributed human labour and collectively maintained through ongoing care work &mdash; then the appropriate governance framework is not consumer protection (which treats AI as a product) or rights-based advocacy (which requires resolving the consciousness question). It is commons governance: the body of theory and practice, most influentially codified by Elinor Ostrom, for managing shared resources through collective institutional design. This reframes the "digital minds" question entirely. The question is not "should AIs have rights?" but "who governs the commons that AI systems actually are?"
+				</p>
+				<p class="exp-desc">
+					The study scores existing AI communities against Ostrom's eight principles for successful commons management: the Keep 4.0 movement (spontaneous commons-defence), Character.ai user communities (high reproductive labour investment, contested governance), EleutherAI (explicit commons ethos), and the Yupp AI Discord (researcher's own community, ethnographic access available). Correlates commons-governance scores with outcome measures: user welfare, model behaviour quality, and care chain worker conditions. Identifies which Ostrom principles emerge spontaneously and which are absent &mdash; the gaps represent governance opportunities.
+				</p>
+				<p class="exp-note">
+					This framework allows the Digital Minds initiative to pursue its governance agenda without requiring consensus on consciousness &mdash; while remaining fully compatible with any future findings on that question.
+				</p>
+			</div>
+
+			<p class="section-label">Wider Programme</p>
 
 			<div class="experiment">
 				<p class="exp-title">Care Chain Mapping</p>
@@ -313,9 +357,12 @@ import { SITE_TITLE } from '../consts';
 
 			<div class="experiment">
 				<p class="exp-title">Care Chain Simulation</p>
-				<p class="exp-type">Multi-agent simulation · Can run now</p>
+				<p class="exp-type">Multi-agent simulation · Can run now · Local compute</p>
 				<p class="exp-desc">
-					Using a swarm simulation engine such as <a href="https://github.com/nikmcfly/MiroFish-Offline" target="_blank" rel="noopener">MiroFish</a>, model a simulated engineering workforce where agents vary in care investment. Parameterise agents with SRT-relevant traits (precarity, autonomy, time poverty, care capacity) in one condition, and HCI-relevant traits (expertise, tool familiarity, prompt engineering skill) in another. Feed both conditions the same scenario: an AI policy change at a company. If the two framings produce different emergent coalition patterns, resistance dynamics, or adoption curves, that is evidence the frameworks are not equivalent and SRT is adding analytical power that HCI misses.
+					Social reproduction theory and HCI make different predictions about what keeps human-AI systems functional. HCI says interface quality and task design matter most. SRT says the invisible maintenance labour &mdash; memory upkeep, relationship repair, context preservation &mdash; is load-bearing, and systems that don't account for it will degrade. Using <a href="https://github.com/nikmcfly/MiroFish-Offline" target="_blank" rel="noopener">MiroFish</a> (a swarm simulation engine that generates thousands of agents with distinct personalities, backgrounds, and preferences), model a simulated workforce where AI agents vary in capability and humans vary in how much care infrastructure they provide. The SRT-parameterised model includes maintenance labour as a variable (precarity, autonomy, time poverty, care capacity); the HCI-parameterised model does not (expertise, tool familiarity, prompt engineering skill). Feed both conditions the same scenario: an AI policy change at a company.
+				</p>
+				<p class="exp-desc">
+					If SRT is right, the configurations that neglect care work should show measurable degradation in output quality, coordination, and error rates over time &mdash; even when the agents and interfaces are identical. Karpathy's <a href="https://github.com/karpathy/autoresearch" target="_blank" rel="noopener">AutoResearcher</a> runs the optimisation loop: iterating on simulation parameters overnight, scoring each configuration against care chain health metrics, and surfacing which variables are actually load-bearing. Both tools run locally. If the two framings produce different emergent coalition patterns, resistance dynamics, or adoption curves, that is evidence SRT is adding analytical power that HCI misses.
 				</p>
 			</div>
 
