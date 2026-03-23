@@ -26,6 +26,9 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 					The work shapes who I am. The person shapes the work. It's all one strange,
 					honest thing.
 				</p>
+				<p class="dm-link">
+					<a href="/digitalminds/">Digital Minds</a> — my research on AI, social reproductive theory, and the care chain.
+				</p>
 			</section>
 
 			<!-- The Work -->
@@ -36,9 +39,13 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 					<div class="work-item">
 						<h3>Content & AI</h3>
 						<p>
-							AI evaluation and storytelling at Yupp. Bylines at Now Media.
+							AI evaluation and storytelling at <a href="https://yupp.ai" target="_blank" rel="noopener">Yupp</a>. Bylines at <a href="https://nowmedia.co" target="_blank" rel="noopener">Now Media</a>.
 							Exploring how language models tell stories - and how to tell stories with them.
-						<a href="/blog/building-with-claude">Read about my automations.</a>
+						</p>
+						<p class="work-links">
+							<a href="https://blog.yupp.ai/boop" target="_blank" rel="noopener">BOOP: The Strawberry Problem for Vision</a>
+							<a href="https://nowmedia.co/posts/op-ed-claude-constitution-nathan-beacom" target="_blank" rel="noopener">Claude's Constitution Isn't the Problem</a>
+							<a href="/blog/building-with-claude">Building with Claude</a>
 						</p>
 					</div>
 
@@ -69,9 +76,11 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 			<section class="section signal">
 				<h2>Find Me</h2>
 				<div class="links">
-					<a href="/blog">Blog</a>
 					<a href="mailto:lorepunkdoteth@gmail.com">lorepunkdoteth@gmail.com</a>
 					<a href="https://x.com/lorepunk" target="_blank" rel="noopener">x.com/lorepunk</a>
+					<a href="/blog">Blog</a>
+					<a href="/digitalminds/">Digital Minds</a>
+					<a href="https://tinyurl.com/lorepunk" target="_blank" rel="noopener">Full Portfolio</a>
 				</div>
 			</section>
 		</main>
@@ -142,6 +151,26 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 
 	.work-item p {
 		margin: 0;
+	}
+
+	.dm-link {
+		margin-top: 1.5rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--border);
+		font-size: 1.05rem;
+	}
+
+	.dm-link a {
+		color: var(--text-primary);
+		font-weight: 700;
+	}
+
+	.work-links {
+		display: flex;
+		flex-direction: column;
+		gap: 0.3rem;
+		margin-top: 0.5rem;
+		font-size: 0.9rem;
 	}
 
 	.portfolio-link {
