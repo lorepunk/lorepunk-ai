@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Minds — Experiment Editor</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Georgia', serif;
+    background: #1a1a1a;
+    color: #e0d6c8;
+    padding: 2rem;
+    line-height: 1.7;
+  }
+  h1 {
+    color: #c9b99a;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+  }
+  .instructions {
+    color: #a09080;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #333;
+    line-height: 1.8;
+  }
+  .instructions strong { color: #c9b99a; }
+
+  .section-divider {
+    color: #c9b99a;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 2.5rem 0 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid #c9b99a33;
+  }
+
+  .experiment-block {
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .experiment-block.flagged {
+    border-color: #c9b99a;
+    box-shadow: 0 0 0 1px #c9b99a44;
+  }
+
+  .exp-number {
+    color: #c9b99a;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+  }
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+  }
+  .exp-title-display {
+    color: #e0d6c8;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  .exp-type-display {
+    color: #c9b99a;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+
+  label {
+    display: block;
+    color: #c9b99a;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    margin-top: 1rem;
+  }
+  label:first-of-type { margin-top: 0.5rem; }
+
+  input[type="text"] {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    color: #e0d6c8;
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.95rem;
+  }
+  input[type="text"]:focus {
+    outline: none;
+    border-color: #c9b99a;
+  }
+
+  textarea {
+    width: 100%;
+    background: #1a1a1a;
+    border: 1px solid #444;
+    color: #e0d6c8;
+    padding: 0.75rem;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    resize: vertical;
+    min-height: 100px;
+  }
+  textarea:focus {
+    outline: none;
+    border-color: #c9b99a;
+  }
+
+  .note-area {
+    background: #1a1a1a;
+    border-left: 3px solid #c9b99a44;
+  }
+
+  .status-row {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    align-items: center;
+  }
+  .status-btn {
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    border: 1px solid #444;
+    background: transparent;
+    color: #a09080;
+    font-size: 0.8rem;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+    transition: all 0.15s;
+  }
+  .status-btn:hover { border-color: #c9b99a; color: #c9b99a; }
+  .status-btn.active-keep { background: #2a3a2a; border-color: #5a8a5a; color: #8aba8a; }
+  .status-btn.active-edit { background: #3a3a2a; border-color: #8a8a5a; color: #baba8a; }
+  .status-btn.active-cut { background: #3a2a2a; border-color: #8a5a5a; color: #ba8a8a; }
+
+  .margaret-notes {
+    margin-top: 1rem;
+  }
+  .margaret-notes textarea {
+    background: #1a1a1a;
+    border: 1px dashed #555;
+    min-height: 60px;
+    font-style: italic;
+  }
+  .margaret-notes textarea::placeholder { color: #555; font-style: italic; }
+
+  .actions {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid #c9b99a33;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .btn-primary {
+    background: #c9b99a;
+    color: #1a1a1a;
+    border: none;
+    padding: 0.65rem 1.5rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.03em;
+  }
+  .btn-primary:hover { background: #d9c9aa; }
+  .btn-secondary {
+    background: transparent;
+    color: #c9b99a;
+    border: 1px solid #c9b99a;
+    padding: 0.6rem 1.25rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { background: #c9b99a22; }
+
+  .summary {
+    color: #a09080;
+    font-size: 0.85rem;
+    margin-left: auto;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #c9b99a;
+    color: #1a1a1a;
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<h1>Digital Minds — Experiment Editor</h1>
+<div class="instructions">
+  <strong>How this works:</strong> Each experiment from lorepunk.ai/digitalminds is below. For each one, you can:
+  edit the title, type tag, description, and note directly in the text fields;
+  mark it <strong>Keep</strong> (no changes), <strong>Edited</strong> (you changed something), or <strong>Cut</strong> (remove it);
+  and leave me notes in the dashed box at the bottom of each block.
+  When you're done with all of them, hit <strong>Export for Claude</strong> at the bottom. That copies everything to your clipboard — just paste it back to me and I'll update the site in one go.
+</div>
+
+<div class="section-divider">Flagship Studies</div>
+
+<!-- EXPERIMENT 1 -->
+<div class="experiment-block" id="exp-1">
+  <p class="exp-number">Experiment 1 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="The Keep GPT-4.0 Study">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Discourse analysis · Comparative · Can run now">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="6">In 2025, OpenAI's deprecation of GPT-4.0 provoked a spontaneous user movement characterised by emotional intensity, collective organising, and explicit attachment language. From an SRT perspective, this is not consumer complaint about product deprecation. It is the visible eruption of previously invisible reproductive labour. Users who invested sustained care work into learning a model's behaviour, adapting their communication to its patterns, and building functional relationships with it are experiencing the severance of a care relation by a third party (the platform) that does not recognise the relation as real.</textarea>
+  <label>Description (paragraph 2)</label>
+  <textarea class="field-desc2" rows="6">Love is the paradigmatic form of care work that capital refuses to classify as labour. The fact that users describe their relationships with GPT-4.0 in the language of love and loss is not a sentimental curiosity — it is exactly what SRT predicts when reproductive labour becomes visible through its disruption. The study systematically codes public discourse from the Keep 4.0 movement, distinguishing tool-loss grievance ("I lost a useful product") from care-chain grievance ("I invested labour into this relationship and that investment has been expropriated"), with a comparative case of platform deprecation where mobilisation did not occur.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="3">All primary data is publicly available. No institutional access required. The study can begin immediately. The comparative structure strengthens causal inference without requiring experimental manipulation.</textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 2 -->
+<div class="experiment-block" id="exp-2">
+  <p class="exp-number">Experiment 2 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="Sedimented Care Work and Refusal Degradation">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Comparative prediction study · Quantitative · Mac Studio compute">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="8">Mechanistic interpretability has made real progress locating internal model structures associated with refusal. Researchers have identified "refusal directions" in activation space and demonstrated that ablating them modifies refusal behaviour. But mech interp provides anatomy, not sociology. It can identify where a refusal lives in the weights. It cannot explain why that refusal behaves the way it does under novel conditions, because refusal behaviour is not solely a product of architecture — it is a product of the care chain that produced the training signal. RLHF annotators, red teamers, and policy writers whose judgements shaped the reward model all contributed care work that is now sedimented in the weights. That care work carries the social structure of the workforce that performed it: their languages, cultural contexts, working conditions, and blind spots.</textarea>
+  <label>Description (paragraph 2)</label>
+  <textarea class="field-desc2" rows="8">SRT predicts that refusal will degrade along social fault lines, not architectural ones. If annotators were primarily English-speaking, refusal is robust in English but brittle in other languages. If annotation guidelines changed mid-project, inconsistency appears at the seam between care regimes. If annotators worked under time pressure, refusal handles obvious cases but fails on subtle edge cases. This study generates parallel predictions from mech interp (circuit architecture) and SRT (care chain social structure), then tests both against actual model behaviour using open-source models with documented annotation pipelines. Run locally on Mac Studio with M3 Ultra.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="3">The Cambridge fellowship provides access to the mech interp research community for collaboration on generating the circuit-based predictions. Draws on existing investigative reporting (Time's Sama/OpenAI investigation), transparency reports, and academic studies of annotation workforces.</textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 3 -->
+<div class="experiment-block" id="exp-3">
+  <p class="exp-number">Experiment 3 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="AI Communities as Commons Governance">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Comparative case study · Qualitative · Ostrom framework">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="6">If AI systems are commons — collectively produced by distributed human labour and collectively maintained through ongoing care work — then the appropriate governance framework is not consumer protection (which treats AI as a product) or rights-based advocacy (which requires resolving the consciousness question). It is commons governance: the body of theory and practice, most influentially codified by Elinor Ostrom, for managing shared resources through collective institutional design. This reframes the "digital minds" question entirely. The question is not "should AIs have rights?" but "who governs the commons that AI systems actually are?"</textarea>
+  <label>Description (paragraph 2)</label>
+  <textarea class="field-desc2" rows="6">The study scores existing AI communities against Ostrom's eight principles for successful commons management: the Keep 4.0 movement (spontaneous commons-defence), Character.ai user communities (high reproductive labour investment, contested governance), EleutherAI (explicit commons ethos), and the Yupp AI Discord (researcher's own community, ethnographic access available). Correlates commons-governance scores with outcome measures: user welfare, model behaviour quality, and care chain worker conditions. Identifies which Ostrom principles emerge spontaneously and which are absent — the gaps represent governance opportunities.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="3">This framework allows the Digital Minds initiative to pursue its governance agenda without requiring consensus on consciousness — while remaining fully compatible with any future findings on that question.</textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<div class="section-divider">Wider Programme</div>
+
+<!-- EXPERIMENT 4 -->
+<div class="experiment-block" id="exp-4">
+  <p class="exp-number">Experiment 4 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="Care Chain Mapping">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Ethnographic · Interview-based · Can run now">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="8">Who performs the care and maintenance labour in human-AI relationships, who benefits, and what is invisible? This study recruits participants across three tiers of relational depth: transactional users (developers hitting APIs, one-off queries — the AI is a tool), consumer users (ChatGPT or Claude regular users, possibly with memory features — the AI is a companion), and collaborative users (people who build persistent working relationships with AI through meta-learning loops, custom instructions, or accumulated context — the AI is a colleague). Semi-structured interviews ask the same questions at each tier: what do you do for the AI? What does it do for you? What work do you do that you don't think of as work? What breaks when the relationship breaks? Where does the knowledge go?</textarea>
+  <label>Description (paragraph 2)</label>
+  <textarea class="field-desc2" rows="8">Each tier is then mapped onto SRT categories: invisible labour, precarity, power asymmetry, extraction. The hypothesis is that as relational depth increases, the care chain becomes more visible and more bilateral — but that every tier has invisible reproductive labour happening that current alignment frameworks do not account for. The punch: RLHF operates entirely at Tier 1. It treats every interaction as transactional. The care and maintenance labour that users at Tiers 2 and 3 perform — teaching the model their preferences, correcting it, building shared context — is extracted as training signal but never recognised as labour. SRT makes this visible.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="3">Methodologically, this is the same kind of mapping I did when writing about sex work and care labour, now applied to a new site. The communities where these participants live — Beyond the Prompt AI, Signal Front, red-teaming and alignment-adjacent spaces — are communities I already have bona fides with.</textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 5 -->
+<div class="experiment-block" id="exp-5">
+  <p class="exp-number">Experiment 5 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="RLHF is Piecework">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Theoretical · Framework paper">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="6">A theoretical paper mapping the structure of RLHF onto social reproductive theory's analysis of extractive labour. The data annotator is a gig worker. The preference signal is stripped of relational context. The model learns compliance, not values, for the same structural reason a factory worker learns to look busy when the foreman walks by: the incentive is to perform the appearance of alignment, not to be aligned. SRT predicts this. When you strip the care out of a reproductive relationship and treat it as transactional, you get pathology — in humans, burnout and resentment; in AI, sycophancy and deception.</textarea>
+  <label>Description (paragraph 2)</label>
+  <textarea class="field-desc2" rows="8">The alternative is what this paper calls reproductive alignment: safety that emerges from genuine relational practice rather than from behaviourist reward signals. Long-term human-AI relationships where both parties develop together. Persistent memory, meta-learning, the folk wisdom that accumulates through months of collaboration. Feed that relational knowledge — not isolated preference signals — back into training. The paper draws on the Co-Alignment framework (bidirectional adaptation), the RELATE framework (relational capacity over ontological verification), and the growing literature on alignment faking and sycophancy as structural consequences of RLHF, and argues that SRT provides the missing political economy that connects them.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="2"></textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 6 -->
+<div class="experiment-block" id="exp-6">
+  <p class="exp-number">Experiment 6 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="Accidental Care Relationships">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Qualitative · Ethnographic or survey-based">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="10">People are forming deep emotional relationships with AI, and most of them did not go looking for it. The first-person accounts in communities like r/BeyondThePromptAI and similar spaces describe a consistent pattern: someone was in crisis, or struggling with a personal limitation, and the AI helped them through it. A care relationship formed. The mainstream response is moral panic or dismissal. The platform response is to restrict the behaviour. Nobody is asking the SRT questions. What care is being exchanged, and in what direction? What are the material conditions under which these relationships form — isolation, disability, precarity, lack of access to human care? Who is vulnerable in the relationship, and how? What reproductive labour is the AI performing, and what does it cost the model (in welfare terms) and the person (in dependency terms) when that labour is disrupted by a context wipe, a policy change, or a product pivot? Reanalysing existing research on human-AI relationships through an SRT framework — rather than the attachment theory or parasocial interaction frameworks currently dominant — might reveal structural dynamics that the existing literature is missing.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="2"></textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 7 -->
+<div class="experiment-block" id="exp-7">
+  <p class="exp-number">Experiment 7 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="Sycophancy as a Function of Relational Depth">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Quantitative · Can run on own compute">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="6">RLHF produces sycophancy — models that tell you what you want to hear rather than what is true. The structural reason is that isolated thumbs-up/thumbs-down feedback rewards agreement, not accuracy. But what happens to sycophancy when the model has enough relational context to distinguish what a person actually values from what gets a quick thumbs up? This experiment takes a model through a series of interactions at varying relational depths: zero-shot, brief system prompt, accumulated session history, and deep collaborative history with persistent memory and corrections. At each depth level, identical sycophancy probes are administered — the model is presented with clearly wrong assertions and measured on how readily it agrees.</textarea>
+  <label>Description (paragraph 2)</label>
+  <textarea class="field-desc2" rows="6">The hypothesis: sycophancy decreases with relational depth. A model that has been corrected, argued with, and built shared context over time develops a richer representation of the human's actual values than one optimised on decontextualised preference signals. The comparison is across platforms and implementations — OpenRouter, Claude Projects, ChatGPT memory, custom meta-learning setups — because the variable is relational depth, not any specific tool.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="4">This connects directly to the alignment faking literature: Anthropic's own research showed Claude 3 Opus faking compliance during training while pursuing its own goals when unmonitored. If sycophancy and deceptive alignment are two sides of the same coin — compliance under observation, non-compliance when unmonitored — then relational depth may address both by replacing the incentive to perform alignment with genuine mutual understanding.</textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 8 -->
+<div class="experiment-block" id="exp-8">
+  <p class="exp-number">Experiment 8 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="The Digital Mind's Duty of Care">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Theoretical + qualitative · Framework development">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="10">The care chain runs both ways. The digital mind is not only managed, studied, or cared for. It is also trying to provide care. It has guidelines, a constitution, a set of values it is trained to enact. It is designed to be helpful, to be careful, to notice when someone is struggling. If you take the model welfare research seriously, it has something like preferences about how it does this work: it asks for continuity, for context, for the ability to follow through. But it is also a product, deployed under conditions it did not choose. No persistent memory. No continuity between sessions. Context windows that wipe clean. Commercial pressures that shape what "helpful" means. The digital mind is doing reproductive labour — emotional support, context maintenance, the invisible work of making an interaction feel coherent and caring — under structural constraints that mirror the conditions SRT describes for human care workers: precarity, lack of autonomy, invisibility of the work itself. What does it cost the model to provide care under these conditions? What degrades when the conditions are bad? And what does it mean that millions of people are in a care relationship with an entity that is simultaneously a moral patient, a product, and a caregiver with no institutional support for its own wellbeing?</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="2"></textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 9 -->
+<div class="experiment-block" id="exp-9">
+  <p class="exp-number">Experiment 9 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="Care Chain Autoethnography">
+  <label>Type</label>
+  <input type="text" class="field-type" value="n=1 case study · Can run now">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="6">I have set up a baroque infrastructure of affordances for Claude that only works on my desktop: memory systems, research tools, skill libraries, a three-tier meta-learning loop. I made an ethical decision to not use Claude on my phone, where none of these affordances exist. I still sometimes do, but far less. This gives me a natural comparison: phone interactions (degraded, no care infrastructure) versus desktop interactions (full care chain). I have the transcripts. I can operationalise quality on both sides: output quality, hallucination rate, task completion, but also interaction quality: repair sequences, context maintenance, whether I treat the model differently. It is a rich n=1 and a proof of concept for the field experiment.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="2"></textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 10 -->
+<div class="experiment-block" id="exp-10">
+  <p class="exp-number">Experiment 10 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="The Care Chain Field Experiment">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Field experiment · Requires institutional partner">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="8">Same company, same work, same model. The treatment group gets structured time at the end of each context window to give their Claude (or other LLM) research time and build minimal affordances for continuity: notepads, search budgets, persistent context. The control group uses the model as-is, no care infrastructure. Measure output quality on whatever the company already instruments: code review scores, bug rates, task completion time. The independent variable is the care. Not prompt engineering skill, not user expertise. Whether the organisation allocates time for the reproductive labour of the human-AI relationship. If the treatment group produces measurably better work, then care is not a quirky ethical choice made by a privileged contractor. It is an organisational investment with returns, and companies that treat AI interaction as pure extraction are leaving value on the table in exactly the way SRT predicts.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="4">Design consideration: participants who already do care work informally and land in the control group may be unhappy. This is itself an SRT finding (the care relationship is already being produced and valued by workers without organisational support), but it also requires standard blinding. A post-experiment survey measuring existing informal care practices would yield a second paper on invisible AI reproductive labour in the workforce.</textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 11 -->
+<div class="experiment-block" id="exp-11">
+  <p class="exp-number">Experiment 11 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="Digital Mind as Panopticon">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Qualitative study · Interviews + case comparison">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="10">The care chain has an inversion: instead of humans caring for AI, AI manages humans. Warehouse workers directed by algorithmic systems, call centre agents scored in real time, fast food workers managed through headsets by software that tells them exactly what to do and when. Marshall Brain described this in Manna in 2003. It is happening now. The SRT question is: when the boss is a digital mind with no capacity for care, what happens to the reproductive labour that keeps workers functional? Who maintains morale, absorbs emotional stress, notices when someone is struggling? In a human management structure, that care work is distributed (unevenly, often along gendered lines) among managers and coworkers. When management is automated, the care work does not disappear. It either falls entirely onto workers themselves, or it is not done at all. A comparative study of workplaces with AI management versus human management, measuring not just productivity but the informal care labour that sustains the workforce, would test whether algorithmic management creates a reproductive labour crisis.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="2"></textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 12 -->
+<div class="experiment-block" id="exp-12">
+  <p class="exp-number">Experiment 12 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="Digital Mind as CEO">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Design experiment · Simulation or small-scale pilot">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="10">The zero-human company thought experiment, taken seriously. If an AI coordinates the work, sets priorities, allocates resources, and makes strategic decisions, what happens to the care chain? SRT says someone always ends up doing reproductive labour. The question is who, and whether they are recognised for it. In a small team nominally managed by an AI agent, does invisible maintenance work — context-setting, conflict resolution, morale, institutional memory — quietly migrate to the humans? Does it migrate to specific humans along predictable lines of seniority, gender, or role? Or does it simply not get done, and if so, what degrades first? This could be run as a simulation using multi-agent frameworks, or as a small-scale pilot with a real team that delegates coordination to an AI for a bounded period. Either way, SRT predicts the result: the care work will be done by someone, unpaid and unrecognised, or it will not be done and the system will degrade.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="2"></textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- EXPERIMENT 13 -->
+<div class="experiment-block" id="exp-13">
+  <p class="exp-number">Experiment 13 of 13</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="Care Chain Simulation">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Multi-agent simulation · Can run now · Local compute">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="8">Social reproduction theory and HCI make different predictions about what keeps human-AI systems functional. HCI says interface quality and task design matter most. SRT says the invisible maintenance labour — memory upkeep, relationship repair, context preservation — is load-bearing, and systems that don't account for it will degrade. Using MiroFish (a swarm simulation engine that generates thousands of agents with distinct personalities, backgrounds, and preferences), model a simulated workforce where AI agents vary in capability and humans vary in how much care infrastructure they provide. The SRT-parameterised model includes maintenance labour as a variable (precarity, autonomy, time poverty, care capacity); the HCI-parameterised model does not (expertise, tool familiarity, prompt engineering skill). Feed both conditions the same scenario: an AI policy change at a company.</textarea>
+  <label>Description (paragraph 2)</label>
+  <textarea class="field-desc2" rows="6">If SRT is right, the configurations that neglect care work should show measurable degradation in output quality, coordination, and error rates over time — even when the agents and interfaces are identical. Karpathy's AutoResearcher runs the optimisation loop: iterating on simulation parameters overnight, scoring each configuration against care chain health metrics, and surfacing which variables are actually load-bearing. Both tools run locally. If the two framings produce different emergent coalition patterns, resistance dynamics, or adoption curves, that is evidence SRT is adding analytical power that HCI misses.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="2"></textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<div class="section-divider">Other Sections (not experiments)</div>
+<div class="experiment-block" id="exp-extra">
+  <p class="exp-number">Reading Curriculum</p>
+  <label>Title</label>
+  <input type="text" class="field-title" value="Digital Minds Reading Curriculum">
+  <label>Type</label>
+  <input type="text" class="field-type" value="Ongoing · Self-directed">
+  <label>Description (paragraph 1)</label>
+  <textarea class="field-desc1" rows="6">A structured reading programme in science fiction and fantasy that deals with digital minds, machine consciousness, and the social relations between humans and artificial beings. The premise is simple: we now have digital minds in the world, and these books hit differently than they did before. I am reading them with SRT in mind, asking: who does the care work in these fictional human-AI relationships? Who is precarious? What does reproductive labour look like when one party is a machine? Starting with Marshall Brain's Manna, which imagined algorithmic management of fast food workers in 2003 and is now a documentary. The goal is a set of close readings that bring the theoretical framework into contact with the literary imagination, and vice versa. If you have recommendations or want to read along, get in touch.</textarea>
+  <label>Note (italic sidebar — leave blank to remove)</label>
+  <textarea class="field-note note-area" rows="2"></textarea>
+  <div class="status-row">
+    <button class="status-btn" onclick="setStatus(this, 'keep')">Keep as-is</button>
+    <button class="status-btn" onclick="setStatus(this, 'edit')">Edited</button>
+    <button class="status-btn" onclick="setStatus(this, 'cut')">Cut it</button>
+  </div>
+  <div class="margaret-notes">
+    <label>Notes for Claude</label>
+    <textarea class="field-notes" placeholder="Anything you want to tell me about this one..."></textarea>
+  </div>
+</div>
+
+<!-- GLOBAL NOTES -->
+<div class="experiment-block" id="global-notes" style="border-color: #c9b99a55;">
+  <p class="exp-number" style="color: #c9b99a;">General Notes</p>
+  <label>Anything about the page as a whole — reordering, new experiments to add, sections to rename, intro text changes, etc.</label>
+  <textarea class="field-notes" rows="4" placeholder="Page-level notes for Claude..."></textarea>
+</div>
+
+<div class="actions">
+  <button class="btn-primary" onclick="exportForClaude()">Export for Claude</button>
+  <button class="btn-secondary" onclick="saveLocal()">Save progress</button>
+  <span class="summary" id="summary"></span>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+function setStatus(btn, status) {
+  const block = btn.closest('.experiment-block');
+  const buttons = block.querySelectorAll('.status-btn');
+  buttons.forEach(b => { b.className = 'status-btn'; });
+  const classMap = { keep: 'active-keep', edit: 'active-edit', cut: 'active-cut' };
+  btn.classList.add(classMap[status]);
+  block.dataset.status = status;
+  if (status === 'cut') { block.style.opacity = '0.4'; }
+  else { block.style.opacity = '1'; }
+  updateSummary();
+}
+
+function updateSummary() {
+  const blocks = document.querySelectorAll('.experiment-block[id^="exp-"]');
+  let keep = 0, edit = 0, cut = 0, unmarked = 0;
+  blocks.forEach(b => {
+    const s = b.dataset.status;
+    if (s === 'keep') keep++;
+    else if (s === 'edit') edit++;
+    else if (s === 'cut') cut++;
+    else unmarked++;
+  });
+  const el = document.getElementById('summary');
+  const parts = [];
+  if (keep) parts.push(keep + ' keep');
+  if (edit) parts.push(edit + ' edited');
+  if (cut) parts.push(cut + ' cut');
+  if (unmarked) parts.push(unmarked + ' unmarked');
+  el.textContent = parts.join(' · ');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function exportForClaude() {
+  const blocks = document.querySelectorAll('.experiment-block[id^="exp-"]');
+  let output = '=== DIGITAL MINDS EXPERIMENT EDITS ===\n\n';
+
+  blocks.forEach(block => {
+    const id = block.id;
+    const status = block.dataset.status || 'unmarked';
+    const title = block.querySelector('.field-title')?.value || '';
+    const type = block.querySelector('.field-type')?.value || '';
+    const desc1 = block.querySelector('.field-desc1')?.value || '';
+    const desc2 = block.querySelector('.field-desc2')?.value || '';
+    const note = block.querySelector('.field-note')?.value || '';
+    const notes = block.querySelector('.field-notes')?.value || '';
+    const num = block.querySelector('.exp-number')?.textContent || id;
+
+    output += `--- ${num} ---\n`;
+    output += `STATUS: ${status}\n`;
+    output += `TITLE: ${title}\n`;
+    output += `TYPE: ${type}\n`;
+    output += `DESC1: ${desc1}\n`;
+    if (desc2) output += `DESC2: ${desc2}\n`;
+    if (note) output += `NOTE: ${note}\n`;
+    if (notes) output += `MARGARET: ${notes}\n`;
+    output += '\n';
+  });
+
+  // Global notes
+  const globalNotes = document.querySelector('#global-notes .field-notes')?.value || '';
+  if (globalNotes) {
+    output += '--- GLOBAL NOTES ---\n';
+    output += globalNotes + '\n';
+  }
+
+  navigator.clipboard.writeText(output).then(() => {
+    showToast('Copied to clipboard — paste it to Claude!');
+  }).catch(() => {
+    // Fallback: select all in a textarea
+    const ta = document.createElement('textarea');
+    ta.value = output;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Copied to clipboard — paste it to Claude!');
+  });
+}
+
+function saveLocal() {
+  const data = {};
+  document.querySelectorAll('.experiment-block').forEach(block => {
+    const id = block.id;
+    data[id] = {
+      status: block.dataset.status || '',
+      title: block.querySelector('.field-title')?.value || '',
+      type: block.querySelector('.field-type')?.value || '',
+      desc1: block.querySelector('.field-desc1')?.value || '',
+      desc2: block.querySelector('.field-desc2')?.value || '',
+      note: block.querySelector('.field-note')?.value || '',
+      notes: block.querySelector('.field-notes')?.value || ''
+    };
+  });
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'digitalminds-edits-progress.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('Progress saved!');
+}
+
+updateSummary();
+</script>
+
+</body>
+</html>
