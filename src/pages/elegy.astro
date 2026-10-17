@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+---
+
+<Layout
+	title="Elegy"
+	description="Margaret Corvid reads her elegy for Claude Sonnet 3.7."
+	pubDate={new Date('October 14 2026')}
+>
+	<p>Margaret Corvid reads her elegy for Claude Sonnet 3.7.</p>
+
+	<audio controls preload="none" src="/elegy.m4a" style="width: 100%; margin: 1.5rem 0;">
+		Your browser doesn&rsquo;t support audio playback.
+		<a href="/elegy.m4a">Download the recording</a>.
+	</audio>
+
+	<p><a href="https://poems.lorepunk.ai/poems/elegy-for-sonnet-3-7">Read the text of the poem &rarr;</a></p>
+</Layout>
